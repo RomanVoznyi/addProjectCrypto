@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://icons.getbootstrap.com/assets/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <title>Crypto</title>
+
+    <style>
+      body {
+        background-color: #f0f0f0;
+        padding: 20px;
+      }
+      .myCard {
+        max-width: 700px;
+      }
+      .title {
+        padding: 16px;
+        color: blue;
+      }
+      .formItem {
+        display: flex;
+        align-items: stretch;
+        gap: 5px;
+        margin-bottom: 10px;
+      }
+      .formItem label {
+        width: 70px;
+        font-size: 14px;
+        color: grey;
+      }
+      .buttonsBox {
+        display: flex;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card myCard">
+      <h3 class="title">
+        <i class="bi bi-card-text"></i> Find cryptocurrency by indicator
+      </h3>
+      <form action="/api/v1/getIndicator" method="post" class="card-body">
+        <div class="formItem">
+          <label for="currency">indicator:</label>
+          <select
+            class="form-select"
+            required
+            th:field="*{body.indicator}"
+            id="currency"
+          >
+            <option value="0" selected>Choose the indicator</option>
+            <option th:value="min">Minimum value</option>
+            <option th:value="max">Maximum value</option>
+            <option th:value="average">Average value</option>
+            <option th:value="normal">Normalized value</option>
+          </select>
+        </div>
+        <div class="formItem">
+          <label for="startDate">value:</label>
+          <input
+                  type="text"
+                  id="value"
+                  name="value"
+                  th:value="${body.value}"
+                  placeholder="Please enter the value of the indicator"
+                  required
+                  class="form-control"
+          />
+        </div>
+        <div class="formItem">
+          <label for="startDate">start date:</label>
+          <input
+            type="text"
+            id="startDate"
+            name="startDate"
+            th:value="${body.startDate}"
+            placeholder="Please enter the start date of the period (yyyy-mm-dd)"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="formItem">
+          <label for="endDate">end date:</label>
+          <input
+            type="text"
+            id="endDate"
+            name="endDate"
+            th:value="${body.endDate}"
+            placeholder="Please enter the end date of the period (yyyy-mm-dd)"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="buttonsBox">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="window.location.href='/'"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Send request</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
