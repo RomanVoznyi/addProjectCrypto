@@ -1,5 +1,6 @@
 package Crypto.controller;
 
+import Crypto.model.CalculatedValues;
 import Crypto.model.IndicatorRequest;
 import Crypto.model.ValueRequest;
 import Crypto.service.IndicatorService;
@@ -11,11 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
-
 @RequiredArgsConstructor
 @RestController
 public class RootController {
+
     private final IndicatorService indicatorService;
 
     @GetMapping("/")
@@ -70,7 +70,7 @@ public class RootController {
         if (indicator == null || indicator.equals("0") || !Utils.isValidNumber(value) || !Utils.isValidDates(startDate, endDate)) {
             return new ModelAndView("error/400");
         } else {
-            String response = indicatorService.getCurrencyByIndicator(indicator, value, startDate, endDate);
+            CalculatedValues response = indicatorService.getCurrencyByIndicator(indicator, value, startDate, endDate);
             ModelAndView result = new ModelAndView("result");
             result.addObject("result", response);
             return result;
